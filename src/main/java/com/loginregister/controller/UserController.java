@@ -10,15 +10,22 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
     @Autowired
-    IUserService loginRegisterService;
-
-    @GetMapping("/register")
-    public User register(@RequestBody @Valid User user) {
-        return loginRegisterService.register(user);
-    }
+    IUserService userService;
 
     @RequestMapping ("/")
-    public @ResponseBody String greeting() {
+    public @ResponseBody
+    String greeting() {
         return "Hello, World";
     }
+
+    @GetMapping ("/register")
+    public User register(@RequestBody @Valid User user) {
+        return userService.register(user);
+    }
+
+    @PostMapping ("/login")
+    public User login(@RequestParam (value = "userName") String userName, @RequestParam (value = "password") String password) {
+        return userService.login(userName, password);
+    }
+
 }

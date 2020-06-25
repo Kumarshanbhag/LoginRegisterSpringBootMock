@@ -22,6 +22,7 @@ public class User {
     public String userName;
 
     @NotEmpty
+    @NotNull
     @Pattern (regexp = "^[A-Za-z]{5,}[0-9]{3,}$", message = "Minimum 8 Character And 5 Character And 3 Number Compulsory")
     public String password;
 

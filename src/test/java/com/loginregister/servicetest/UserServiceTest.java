@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.when;
 
 @RunWith (SpringRunner.class)
@@ -23,10 +26,22 @@ public class UserServiceTest {
     IUserRepository userRepository;
 
     @Test
-    public void givenUserObject_ShouldReturnUser() {
+    public void givenUserObject_WhenRegister_ShouldReturnUser() {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         when(userRepository.save(user)).thenReturn(user);
         User registeredUser = userService.register(user);
         Assert.assertEquals(registeredUser,user);
     }
+
+    @Test
+    public void givenUserObject_WhenLogin_ShouldReturnUser () {
+        User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+        when(userRepository.findAll()).thenReturn(userList);
+        User loginUser = userService.login("Kumar","Kumar123");
+        Assert.assertEquals(loginUser,user);
+    }
+
+
 }

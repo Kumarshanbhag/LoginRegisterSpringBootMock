@@ -4,4 +4,6 @@ import com.loginregister.model.User;
 
 public interface IUserService {
     User register(User user);
+
+    User login(String userName, String password);
 }
