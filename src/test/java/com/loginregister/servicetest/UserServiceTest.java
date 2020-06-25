@@ -23,7 +23,7 @@ public class UserServiceTest {
     IUserRepository userRepository;
 
     @Test
-    public void ServiceTestAouj() {
+    public void givenUserObject_ShouldReturnUser() {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         when(userRepository.save(user)).thenReturn(user);
         User registeredUser = userService.register(user);

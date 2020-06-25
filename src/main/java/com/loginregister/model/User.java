@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,12 +17,21 @@ public class User {
     @GeneratedValue (strategy = GenerationType.AUTO)
     public int id;
 
+    @NotEmpty
+    @NotNull (message = "UserName Cannot be Null")
     public String userName;
 
+    @NotEmpty
+    @Pattern (regexp = "^[A-Za-z]{5,}[0-9]{3,}$", message = "Minimum 8 Character And 5 Character And 3 Number Compulsory")
     public String password;
 
+    @NotEmpty
+    @NotNull
+    @Email
     public String emailId;
 
+    @NotEmpty
+    @Pattern(regexp = "^[A-Z][a-z]{3,}$")
     public String address;
 
     public LocalDateTime registerDate;
