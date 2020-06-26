@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith (SpringRunner.class)
@@ -34,7 +35,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUserObject_WhenLogin_ShouldReturnUser () {
+    public void givenUserNameAndPassword_WhenLogin_ShouldReturnUser () {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         List<User> userList = new ArrayList<>();
         userList.add(user);
@@ -43,5 +44,11 @@ public class UserServiceTest {
         Assert.assertEquals(loginUser,user);
     }
 
-
+    @Test
+    public void givenUserNameAndPassword_WhenLoginUsingQuery_ShouldReturnUser () {
+        User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
+        when(userRepository.findUserByUsernameAndPassword(any(String.class),any(String.class))).thenReturn(user);
+        User loginUser = userService.loginUserUsingQuery("Kumar","Kumar123");
+        Assert.assertEquals(loginUser,user);
+    }
 }

@@ -40,7 +40,7 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void givenRegisterApi_WhenUserBodySent_ShouldReturnUser() throws Exception {
+    public void givenRegisterApi_WhenUserNameAndPasswordArecorrect_ShouldReturnUser() throws Exception {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         String requestJson = this.mapToJson(user);
         given(loginRegisterService.register(any(User.class))).willReturn(user);
@@ -56,11 +56,11 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void givenLoginApi_WhenUserBodySent_ShouldReturnUser() throws Exception {
+    public void givenLoginApi_WhenUserNameandPasswordAreCorrectandSentToQuery_ShouldReturnUser() throws Exception {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         String requestJson = this.mapToJson(user);
-        given(loginRegisterService.login(any(String.class), any(String.class))).willReturn(user);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/login?userName=Kumar&password=Kumar123")
+        given(loginRegisterService.loginUserUsingQuery(any(String.class), any(String.class))).willReturn(user);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/loginusingquery?userName=Kumar&password=Kumar123")
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder)
                 .andReturn();
@@ -73,5 +73,20 @@ public class UserControllerUnitTest {
     private String mapToJson(Object object) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(object);
+    }
+
+    @Test
+    public void givenLoginApi_WhenUserBodySent_ShouldReturnUser() throws Exception {
+        User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
+        String requestJson = this.mapToJson(user);
+        given(loginRegisterService.login(any(String.class), any(String.class))).willReturn(user);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/login?userName=Kumar&password=Kumar123")
+                .contentType(MediaType.APPLICATION_JSON);
+        MvcResult mvcResult = this.mockMvc.perform(requestBuilder)
+                .andReturn();
+        System.out.println(mvcResult);
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String outputInJson = response.getContentAsString();
+        Assert.assertEquals(outputInJson, requestJson);
     }
 }

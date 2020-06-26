@@ -28,4 +28,9 @@ public class UserController {
         return userService.login(userName, password);
     }
 
+    @PostMapping ("/loginusingquery")
+    public User loginUser(@RequestParam (value = "userName") String userName, @RequestParam (value = "password") String password) {
+        return userService.loginUserUsingQuery(userName, password);
+    }
+
 }

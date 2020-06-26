@@ -29,4 +29,9 @@ public class UserServiceImpl implements IUserService {
                 .get();
         return user;
     }
+
+    @Override
+    public User loginUserUsingQuery(String userName, String password) {
+        return userRepository.findUserByUsernameAndPassword(userName,password);
+    }
 }
