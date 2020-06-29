@@ -1,13 +1,8 @@
 package com.loginregister.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
@@ -18,21 +13,23 @@ public class User {
     public int id;
 
     @NotEmpty
-    @NotNull (message = "UserName Cannot be Null")
+    @Pattern (regexp = "^[A-Z][a-z]{2,}$", message = "UserName Cannot be Null")
+    @Column (nullable = false)
     public String userName;
 
     @NotEmpty
-    @NotNull
     @Pattern (regexp = "^[A-Za-z]{5,}[0-9]{3,}$", message = "Minimum 8 Character And 5 Character And 3 Number Compulsory")
+    @Column (nullable = false)
     public String password;
 
     @NotEmpty
-    @NotNull
-    @Email
+    @Pattern (regexp = "^[a-zA-Z0-9]{3,}[@][a-zA-Z0-9]+[.][a-zA-Z]{2,3}$", message = "Can Consists Character & number, It should have minimum 3 Character and @ company name and . domain")
+    @Column (unique = true, nullable = false)
     public String emailId;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Z][a-z]{3,}$")
+    @Pattern (regexp = "^[A-Z][A-za-z]{3,}$", message = "Should Start With Capital Letter and Consist Of Minimum 3 character and No number Or Special Character Allowed")
+    @Column (nullable = false)
     public String address;
 
     public LocalDateTime registerDate;

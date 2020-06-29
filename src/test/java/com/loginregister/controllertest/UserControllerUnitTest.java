@@ -33,6 +33,12 @@ public class UserControllerUnitTest {
     IUserService loginRegisterService;
 
     @Test
+    public void shouldReturnDefault() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/hello"))
+                .andDo(print()).andExpect(status().isNotFound());
+    }
+
+    @Test
     public void shouldReturnDefaultMessage() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andDo(print()).andExpect(status().isOk())
@@ -59,7 +65,7 @@ public class UserControllerUnitTest {
     public void givenLoginApi_WhenUserNameandPasswordAreCorrectandSentToQuery_ShouldReturnUser() throws Exception {
         User user = new User("Kumar", "Kumar123", "kumar@gmail.com", "Mumbai");
         String requestJson = this.mapToJson(user);
-        given(loginRegisterService.loginUserUsingQuery(any(String.class), any(String.class))).willReturn(user);
+        given(loginRegisterService.login(any(String.class), any(String.class))).willReturn(user);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/loginusingquery?userName=Kumar&password=Kumar123")
                 .contentType(MediaType.APPLICATION_JSON);
         MvcResult mvcResult = this.mockMvc.perform(requestBuilder)

@@ -23,14 +23,10 @@ public class UserController {
         return userService.register(user);
     }
 
-    @PostMapping ("/login")
-    public User login(@RequestParam (value = "userName") String userName, @RequestParam (value = "password") String password) {
-        return userService.login(userName, password);
-    }
 
-    @PostMapping ("/loginusingquery")
-    public User loginUser(@RequestParam (value = "userName") String userName, @RequestParam (value = "password") String password) {
-        return userService.loginUserUsingQuery(userName, password);
+    @PostMapping ("/login")
+    public User loginUser(@RequestParam (value = "emailId") String emailId, @RequestParam (value = "password") String password) {
+        return userService.login(emailId, password);
     }
 
 }

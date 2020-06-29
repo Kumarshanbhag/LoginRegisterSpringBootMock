@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -33,5 +34,10 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(
                 apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<String> loginExceptionHandler(LoginException e) {
+        return new ResponseEntity<>(e.message, HttpStatus.BAD_REQUEST);
     }
 }
