@@ -1,5 +1,10 @@
-package com.loginregister.model;
+/*****************************************************************
+ * @Purpose: To Store Data
+ * @Author: Kumar Shanbhag
+ * @Date: 26/06/2020
+ ****************************************************************/
 
+package com.loginregister.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

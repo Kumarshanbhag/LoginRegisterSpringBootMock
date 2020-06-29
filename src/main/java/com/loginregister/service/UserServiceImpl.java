@@ -1,3 +1,9 @@
+/*****************************************************************
+ * @Purpose: To Perform Login and Register Operation On SQL
+ * @Author: Kumar Shanbhag
+ * @Date: 26/06/2020
+ ****************************************************************/
+
 package com.loginregister.service;
 
 import com.loginregister.exception.LoginException;
@@ -13,6 +19,11 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     IUserRepository userRepository;
 
+    /**
+     * @Purpose: TO Store Data In database If Correct Or Throw exception
+     * @param user
+     * @return User Data Or Exception
+     */
     @Override
     public User register(User user) {
         user.setRegisterDate(LocalDateTime.now());
@@ -23,6 +34,12 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    /**
+     * @Purpose: TO Retrieve Data From database If Correct Or Throw exception
+     * @param emailId
+     * @param password
+     * @return User Data Or Exception
+     */
     @Override
     public User login(String emailId, String password) {
         User user = userRepository.findUserByEmailIdAndPassword(emailId, password);
